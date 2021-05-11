@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[8]:
 
 
 # # What type of movies are getting good rating and gross amount?
 #Its a task from kaggle. The data file was top rated 1000 movies of IMDB. The task is to sort and analyze them according to the 
-#ratings and the gross amount.
+#ratings and the gross amount. 
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv(r'D:\Upal\Python\IMDB top grossed movies\imdb_top_1000.csv')
+df = pd.read_csv(r'D:\Upal\Python\IMDB top grossed movies\IMDB top grossed movies\imdb_top_1000.csv')
 
 del df['Certificate']
 
@@ -58,27 +58,18 @@ dfg=dfir[dfir['Gross']>=100000000]
 dfg.rename(columns={'Series_Title':'Movie_Title'}, inplace=True)
 
 dfg.corr()
-#relation among the datas, such as IMDB rating has a 70% of relation due to we took the data according to the votes and IMDB ratings
+#relation among the datas, such as IMDB rating has a 70% of relation with the vote count due to we took the data according to the votes and IMDB ratings
 
 numerical_attributes = ['IMDB_Rating', 'Meta_score', 'No_of_Votes', 'Gross']
 dfg[numerical_attributes].hist(figsize = (15, 6), color = 'blue', edgecolor = 'red', layout = (2, 2));
 
 fig,axs=plt.subplots(figsize=(25,5))
 g=sns.barplot(x=dfg['Movie_Title'][:20],y=dfg['Gross'][:20], palette = 'husl')
-g.set_title("IMDB Rating of top Rated movies", weight = "bold")
+g.set_title("IMDB Rating of top Rated movies- According to Gross", weight = "bold")
+plt.xticks(rotation=90)
 plt.show()
 
-
-
-
-# In[223]:
-
-
 dfg.sort_values(by=['Gross'], ascending=False)
-
-
-# In[231]:
-
 
 fig,axs=plt.subplots(figsize=(25,5))
 g=sns.barplot(x=dfg['Movie_Title'][:20],y=dfg['IMDB_Rating'][:20], palette = 'husl')
@@ -86,29 +77,17 @@ g.set_title("IMDB Rating of top Rated movies", weight = "bold")
 plt.xticks(rotation=90)
 plt.show()
 
-
-# In[225]:
-
-
 dfghigh=dfg.sort_values(by=['Gross'], ascending=False)
-
-
-# In[229]:
-
 
 fig,axs=plt.subplots(figsize=(25,5))
 g=sns.barplot(x=dfghigh['Movie_Title'][:20],y=dfghigh['Gross'][:20], palette = 'husl')
-g.set_title("IMDB Rating of top Rated movies", weight = "bold")
+g.set_title("IMDB Rating of Highest Grossing movies", weight = "bold")
 plt.xticks(rotation=90)
 plt.show()
 
-
-# In[234]:
-
-
 fig,axs=plt.subplots(figsize=(20,5))
 g=sns.barplot(x=dfghigh['Released_Year'].value_counts()[:20].index,y=dfghigh['Released_Year'].value_counts()[:20])
-g.set_title("Maximum Movies released in-", weight = "bold")
+g.set_title("Maximum Movies released in", weight = "bold")
 g.set_xlabel("Years")
 plt.show()
 
